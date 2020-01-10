@@ -23,10 +23,13 @@ for letter in keyword:
 			i = i+1
 if(not presentInMatrix['I'] and not presentInMatrix['J']):
 	presentInMatrix['I'] = True
+	presentInMatrix['IORJ'] = 'J'
 elif(presentInMatrix['I'] == True):
 	presentInMatrix['J'] = True
+	presentInMatrix['IORJ'] = 'I'
 elif(presentInMatrix['J'] == True):
 	presentInMatrix['I'] = True
+	presentInMatrix['IORJ'] = 'J'
 for letter in letters:
 	if(presentInMatrix[letter] == False):
 		matrixOfLetters[i][j] = letter
@@ -36,7 +39,7 @@ for letter in letters:
 			j = 0
 			i = i+1
 		
-		
+
 		
 			
 print(matrixOfLetters)
@@ -65,15 +68,27 @@ def findInMatrix(letter):
 				return i,j
 finalAns = list()
 for item in out:
-	if(item[0] == 'I'):
-		i1,j1 = findInMatrix('J')    #  i and j have same location in matrix
-		i2,j2 = findInMatrix(item[1])
-	elif(item[1] == 'I'):
-		i1,j1 = findInMatrix(item[0])
-		i2,j2 = findInMatrix('J')
+	l1 = item[0]
+	l2 = item[1]
+
+	if(l1 == 'I' and presentInMatrix['IORJ'] == 'J'):
+		i1,j1 = findInMatrix('J')
+	elif(l1 == 'J' and presentInMatrix['IORJ'] == 'I'):
+		i1,j1 = findInMatrix('I')
 	else:
-		i1,j1 = findInMatrix(item[0])
-		i2,j2 = findInMatrix(item[1])
+		i1,j1 = findInMatrix(l1)
+
+	if(l2 == 'I' and presentInMatrix['IORJ'] == 'J'):
+		i2,j2 = findInMatrix('J')
+	elif(l2 == 'J' and presentInMatrix['IORJ'] == 'I'):
+		i2,j2 = findInMatrix('I')
+	else:
+		i2,j2 = findInMatrix(l2)
+		
+
+
+
+
 	if(i1 == i2):
 		j1 = (j1+1)%5
 		j2 = (j2+1)%5

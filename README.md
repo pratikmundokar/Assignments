@@ -2,5 +2,3 @@
 College Assignments
 
 
-
-THANK ME LATER  :) 

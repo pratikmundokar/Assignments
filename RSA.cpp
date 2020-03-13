@@ -1,56 +1,68 @@
-#include<iostream> 
-#include<math.h> 
+#include<iostream>
+#include<math.h>
+ 
 using namespace std;
-  
-
-int gcd(int a, int h) 
-{ 
-    int temp; 
-    while (1) 
-    { 
-        temp = a%h; 
-        if (temp == 0) 
-          return h; 
-        a = h; 
-        h = temp; 
-    } 
-} 
-  
-
-int main() 
-{ 
-
-    double p = 3; 
-    double q = 7; 
-  
-    double n = p*q; 
-  
-    double e = 2; 
-    double phi = (p-1)*(q-1); 
-    
-    while (e < phi) 
-    { 
-        if (gcd(e, phi)==1) 
-            break; 
-        else
-            e++; 
-    } 
  
-    int k = 2;  
-    double d = (1 + (k*phi))/e; 
+//to find gcd
+int gcd(int a, int h)
+{
+    int temp;
+    while(1)
+    {
+        temp = a%h;
+        if(temp==0)
+        return h;
+        a = h;
+        h = temp;
+    }
+}
  
-    double msg = 20; 
-  
-    cout<<"\nMessage data : "<<msg; 
-  
-    double c = pow(msg, e); 
-    c = fmod(c, n); 
-    cout<<"\nEncrypted data : " << c; 
-  
-    double m = pow(c, d); 
-    m = fmod(m, n); 
-    cout<<"\nOriginal Message Sent : "<<m;
-    cout<<endl; 
-
-    return 0; 
-} 
+int main()
+{
+    //2 random prime numbers
+    double p = 3;
+    double q = 7;
+    double n=p*q;
+    double count;
+    double totient = (p-1)*(q-1);
+ 
+    //public key
+    //e stands for encrypt
+    double e=2;
+ 
+    //for checking co-prime which satisfies e>1
+    while(e<totient){
+    count = gcd(e,totient);
+    if(count==1)
+        break;
+    else
+        e++;
+    }
+ 
+    //private key
+    //d stands for decrypt
+    double d;
+ 
+    //k can be any arbitrary value
+    double k = 2;
+ 
+    //choosing d such that it satisfies d*e = 1 + k * totient
+    d = (1 + (k*totient))/e;
+    double msg = 12;
+    double c = pow(msg,e);
+    double m = pow(c,d);
+    c=fmod(c,n);
+    m=fmod(m,n);
+ 
+    cout<<"Message data = "<<msg;
+    cout<<"\n"<<"p = "<<p;
+    cout<<"\n"<<"q = "<<q;
+    cout<<"\n"<<"n = pq = "<<n;
+    cout<<"\n"<<"totient = "<<totient;
+    cout<<"\n"<<"e = "<<e;
+    cout<<"\n"<<"d = "<<d;
+    cout<<"\n"<<"Encrypted data = "<<c;
+    cout<<"\n"<<"Original Message sent = "<<m <<endl;
+ 
+    return 0;
+}

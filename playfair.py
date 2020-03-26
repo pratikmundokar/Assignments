@@ -1,16 +1,17 @@
-
 matrixOfLetters = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]
+letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 keyword = input('enter keyword')
-presentInMatrix = {}
-
+presentInMatrix = {} #dictionary to track if letter in matrix or not
+# set all false initially for both letters array and keyword array
 for letter in keyword:
 	presentInMatrix[letter] = False
-letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-
 for letter in letters:
 	presentInMatrix[letter] = False
+# handle case where keyword has I and J both 
 if('I' in keyword and 'J' in keyword):
 	presentInMatrix['I'] = True
+	
+# assign letters in matrix first from keyword and then from letters array
 i,j = 0,0
 for letter in keyword:
 	if(presentInMatrix[letter] == False):
@@ -21,6 +22,7 @@ for letter in keyword:
 		elif(i<4):
 			j = 0
 			i = i+1
+# ensure all cases of I and J
 if(not presentInMatrix['I'] and not presentInMatrix['J']):
 	presentInMatrix['I'] = True
 	presentInMatrix['IORJ'] = 'J'
